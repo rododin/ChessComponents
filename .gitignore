@@ -1,3 +1,7 @@
 
 *.iml
 /.idea
+/modules/board/target
+/modules/generic/target
+/modules/rules/target
+/modules/uci/target

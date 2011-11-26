@@ -1,0 +1,22 @@
+ChessComponents
+
+Project License : Open source project, GPL version 3 (http://www.gnu.org/licenses/gpl.html)
+Start Date      : November 26, 2011
+Author/Idea     : Rod Odin (Nikolay Chebotaryov)
+Colaborators    : Sergey Nosov 
+
+1. Abstract
+
+The purpose of the project is providing a set of reusable chess (and also checkers) components to be used in any other chess-orientd application in Java.
+We intend to provide the following stuff:
+ - Customizable Chess Board Data Model (not only 8x8 board, but any others as well). Also we plan FischerChess (Chess960) support.
+ - Chess Board View and Controller implementations using AWT/Swing (and other GUI libraries in the future) with support of customizable renderers and controllers
+ - Chess Rules Implementation - the set of reusable methods for chess (checkers, etc.) move validation.
+ - UCI (Unified Chess Interface) support providing a bridge to console based chess engines like Rybka or Fruit.
+ - A lot of other things.
+
+Each component will be provided as a JAR-module (independent or dependent from others), so it will be easy reusable in any other Java applications.
+Some components (like Board Model or Chess Rules) should be compatible with JME (Java Micro Edition) as well.
+
+NOTE: By the state on November 26, 2011 (the oficial starting date) we have already some experimental code which however doesn't satisfy to the declared specs in 100%.
+      But we work on that!

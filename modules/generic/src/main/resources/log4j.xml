@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- Appenders ===================================================================================================== -->
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="${log.console.stream}"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${log.console.pattern}"/>
+		</layout>
+	</appender>
+
+	<appender name="fileout" class="ua.edu.donntu.cs.chess.components.generic.log.AdvancedDailyRollingFileAppender">
+		<param name="File" value="${log.filename}"/>
+		<param name="DatePattern" value="${log.filename.datepattern}"/>
+		<param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${log.file.pattern}"/>
+		</layout>
+	</appender>
+
+	<appender name="stderrout" class="ua.edu.donntu.cs.chess.components.generic.log.AdvancedDailyRollingFileAppender">
+		<param name="File" value="${log.stderr.filename}"/>
+		<param name="DatePattern" value="${log.stderr.filename.datepattern}"/>
+		<param name="Append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="${log.stderr.file.pattern}"/>
+		</layout>
+	</appender>
+
+<!-- Loggers ======================================================================================================= -->
+
+	<logger name="ua.edu.donntu.cs.chess.components.generic">
+		<level value="info"/>
+	</logger>
+
+	<logger name="ua.edu.donntu.cs.chess.components.generic.log.Log4JOutputStreamWrapper">
+		<level value="warn"/>
+		<appender-ref ref="stderrout" />
+	</logger>
+
+	<root>
+		<priority value="warn"/>
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="fileout"/>
+	</root>
+
+</log4j:configuration>

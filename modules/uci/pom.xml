@@ -1,0 +1,98 @@
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>chess-components</artifactId>
+		<groupId>ua.edu.donntu.cs.chess-components</groupId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<name>ChessComponents :: UCI</name>
+	<groupId>ua.edu.donntu.cs.chess-components</groupId>
+	<artifactId>uci</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+	</properties>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includes>**</includes>
+							<excludes>**/MANIFEST.MF</excludes>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>ua.edu.donntu.cs.chess.components.uci.demo.UciDemo</mainClass>
+								</manifest>
+								<manifestEntries>
+									<mode>development</mode>
+									<url>http://ua.edu.donntu.cs/chess-components</url>
+									<Built-By>${user.name}</Built-By>
+									<implementation-version>${project.version}</implementation-version>
+									<package>ua.edu.donntu.cs.chess.components.uci</package>
+									<Bundle-Name>Chess Components - UCI</Bundle-Name>
+									<Bundle-Vendor>DonNTU</Bundle-Vendor>
+								</manifestEntries>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>ua.edu.donntu.cs.chess-components</groupId>
+			<artifactId>generic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

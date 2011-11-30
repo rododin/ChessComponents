@@ -5,13 +5,12 @@
 package ua.edu.donntu.cs.chess.components.board.impl;
 
 import java.awt.*;
+import java.awt.Color;
 import java.io.Console;
 
 import ua.edu.donntu.cs.chess.components.board.BoardRenderer;
 import ua.edu.donntu.cs.chess.components.board.Constants;
-import ua.edu.donntu.cs.chess.components.generic.chess.Area;
-import ua.edu.donntu.cs.chess.components.generic.chess.Board;
-import ua.edu.donntu.cs.chess.components.generic.chess.Piece;
+import ua.edu.donntu.cs.chess.components.generic.chess.*;
 import ua.edu.donntu.cs.chess.components.generic.chess.impl.StandardArea;
 
 /**
@@ -32,37 +31,35 @@ public class SimpleBoardRenderer
 		//int areaHeight = (int) (size.getHeight() / board.getHeight());
 		final Color blackColor = new Color(0x4F, 0x4F, 0xAF);
 		final Color whiteColor = new Color(0xAF, 0xAF, 0xFF);
-        int x,y;
-		for (x = 0; x<board.getWidth(); x++)
+		int x, y;
+		for (x = 0; x < board.getWidth(); x++)
 		{
-			for (y = board.getHeight()-1; y>=0; y--)
+			for (y = 0; y < board.getHeight(); y++)
 			{
 				final Area area = board.getAreaAt(x, y);
-				//LOG.info("Rendering area: position=" + area.getPosition() + ", area=" + area);
-
+				LOG.info("Rendering area: position=" + area.getPosition() + ", area=" + area);
 				if (area.getColor() == ua.edu.donntu.cs.chess.components.generic.chess.Color.BLACK)
-					g.setColor(blackColor);
-				else
 					g.setColor(whiteColor);
-
-				final int areaWidth  = (int) (size.getWidth () / board.getWidth ());
-				final int areaHeight = (int) (size.getHeight() / board.getHeight());
-
+				else
+					g.setColor(blackColor);
+				int areaWidth = (int) (size.getWidth() / board.getWidth());
+				int areaHeight = (int) (size.getHeight() / board.getHeight());
 				g.fillRect(x * areaWidth, y * areaHeight, areaWidth, areaHeight);
 
-				// TODO: Redevelop the area position labeling. It should use getXLabel() and getYLabel()
-				//g.drawString(area.getPosition().getXLabel(), (x + 1) * areaWidth - board.getWidth(), board.getHeight() * areaHeight);
-				//g.drawString(String.valueOf(board.getHeight() - area.getPosition().getYLabel()), 0, y * areaHeight + (int)(1.95 * board.getHeight()));
+				g.setColor(new Color(0x00, 0xFF, 0x00));
+				g.drawString(area.getPosition().getXLabel(), (x + 1) * areaWidth - board.getWidth(), board.getHeight() * areaHeight - 1);
+				g.drawString(area.getPosition().getYLabel(), 0, y * areaHeight + board.getHeight() + 5);
 
-				final Piece piece = area.getPiece();
-
+				//g.drawString(area.getPosition().getXLabel().toString(),(x+1)*areaWidth-board.getWidth(),board.getHeight()*areaHeight);
+				//g.drawString(String.valueOf(board.getHeight()-area.getPosition().getY()),0,y*areaHeight+(int)1.95*board.getHeight());
+				Piece piece = area.getPiece();
 				if (piece != null)
 				{
-					// TODO: Draw pieces at their default chess positions
+					String path = ((RenderablePiece) piece).getPath();
+					//  Image image = new
 
-					final String path = ((RenderablePiece) piece).getPath();
-					//Image image = new
-					//g.drawImage()
+					//  нарисовать на доске фигуры в дефолтной расстановке
+					//g.drawImage();
 				}
 			}
 		}

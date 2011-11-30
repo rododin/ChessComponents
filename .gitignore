@@ -5,3 +5,4 @@
 /modules/generic/target
 /modules/rules/target
 /modules/uci/target
+/modules/board/workdir

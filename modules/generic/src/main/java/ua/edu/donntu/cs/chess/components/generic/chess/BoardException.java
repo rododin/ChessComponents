@@ -31,8 +31,4 @@ public class BoardException
 		super(cause);
 	}
 
-	public BoardException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
-	{
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 }

@@ -82,5 +82,5 @@ public class StandardArea
 
 	final Position position;
 	final Color color;
-	final AtomicReference<Piece> piece = new AtomicReference<>();
+	final AtomicReference<Piece> piece = new AtomicReference<Piece>();
 }

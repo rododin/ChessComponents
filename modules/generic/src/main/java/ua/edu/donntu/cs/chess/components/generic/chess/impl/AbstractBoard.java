@@ -154,7 +154,7 @@ public abstract class AbstractBoard
 
 	private final int width;
 	private final int height;
-	private final LinkedHashMap<Position, Area> areaMap = new LinkedHashMap<>();
+	private final LinkedHashMap<Position, Area> areaMap = new LinkedHashMap<Position, Area>();
 	private final AtomicLong whiteClock = new AtomicLong();
 	private final AtomicLong blackClock = new AtomicLong();
 	private final Collection<BoardListener> boardListeners = new ConcurrentLinkedQueue<BoardListener>();

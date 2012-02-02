@@ -20,3 +20,5 @@ Some components (like Board Model or Chess Rules) should be compatible with JME 
 
 NOTE: By the state on November 26, 2011 (the oficial starting date) we have already some experimental code which however doesn't satisfy to the declared specs in 100%.
       But we work on that!
+
+----

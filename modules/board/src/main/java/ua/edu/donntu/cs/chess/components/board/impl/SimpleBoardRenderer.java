@@ -58,7 +58,7 @@ public class SimpleBoardRenderer
 					String path = ((RenderablePiece) piece).getPath();
 					//  Image image = new
 
-					//  нарисовать на доске фигуры в дефолтной расстановке
+					//
 					//g.drawImage();
 				}
 			}

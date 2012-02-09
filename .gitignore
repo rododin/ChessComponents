@@ -1,8 +1,7 @@
-
 *.iml
 /.idea
-/modules/board/target
 /modules/generic/target
+/modules/model/target
 /modules/rules/target
 /modules/uci/target
-/modules/board/workdir
+/modules/swing_gui/target

@@ -17,9 +17,10 @@
 
 	<modules>
 		<module>modules/generic</module>
-		<module>modules/board</module>
+		<module>modules/model</module>
 		<module>modules/rules</module>
 		<module>modules/uci</module>
+		<module>modules/swing_gui</module>
 	</modules>
 
 	<build>

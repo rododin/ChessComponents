@@ -93,6 +93,11 @@
 			<artifactId>generic</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>ua.edu.donntu.cs.chess-components</groupId>
+			<artifactId>model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

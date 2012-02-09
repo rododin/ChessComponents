@@ -12,4 +12,5 @@ package ua.edu.donntu.cs.chess.components.rules;
 public interface Rules
 	extends Constants
 {
+  boolean checkMove(Game game, String lastMove);
 }

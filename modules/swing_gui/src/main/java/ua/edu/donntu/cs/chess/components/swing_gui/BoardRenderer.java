@@ -7,9 +7,9 @@ package ua.edu.donntu.cs.chess.components.swing_gui;
 import java.awt.Component;
 import java.awt.Graphics2D;
 
-import ua.edu.donntu.cs.chess.components.model.chess.Area;
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
+import ua.edu.donntu.cs.chess.components.model.Area;
+import ua.edu.donntu.cs.chess.components.model.Board;
+import ua.edu.donntu.cs.chess.components.model.Piece;
 
 /**
  * Description.

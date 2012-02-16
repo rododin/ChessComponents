@@ -2,7 +2,7 @@
  * Color.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess;
+package ua.edu.donntu.cs.chess.components.model;
 
 /**
  * Description.

@@ -2,9 +2,9 @@
  * StandardPosition.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess.impl;
+package ua.edu.donntu.cs.chess.components.model.impl;
 
-import ua.edu.donntu.cs.chess.components.model.chess.Position;
+import ua.edu.donntu.cs.chess.components.model.Position;
 
 /**
  * Description.

@@ -4,7 +4,7 @@
 
 package ua.edu.donntu.cs.chess.components.rules;
 
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
+import ua.edu.donntu.cs.chess.components.model.Board;
 
 /**
  * Description.

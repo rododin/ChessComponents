@@ -16,6 +16,7 @@ public interface Constants
 {
 	public static final ResourceBundle BOARD_BUNDLE = ResourceBundle.getBundle(Constants.class.getPackage().getName() + ".swing_gui");
 
+	// Chess Pieces
 	public static final String WHITE_KING_IMAGE_PATH = BOARD_BUNDLE.getString("piece.white.king");
 	public static final String BLACK_KING_IMAGE_PATH = BOARD_BUNDLE.getString("piece.black.king");
 	public static final String WHITE_QUEEN_IMAGE_PATH = BOARD_BUNDLE.getString("piece.white.queen");
@@ -28,4 +29,10 @@ public interface Constants
 	public static final String BLACK_KNIGHT_IMAGE_PATH = BOARD_BUNDLE.getString("piece.black.knight");
 	public static final String WHITE_PAWN_IMAGE_PATH = BOARD_BUNDLE.getString("piece.white.pawn");
 	public static final String BLACK_PAWN_IMAGE_PATH = BOARD_BUNDLE.getString("piece.black.pawn");
+
+	// Checker Pieces
+	public static final String CHECKER_WHITE_DRAUGHT_IMAGE_PATH = BOARD_BUNDLE.getString("piece.checker.white.draught");
+	public static final String CHECKER_BLACK_DRAUGHT_IMAGE_PATH = BOARD_BUNDLE.getString("piece.checker.black.draught");
+	public static final String CHECKER_WHITE_KING_IMAGE_PATH    = BOARD_BUNDLE.getString("piece.checker.white.king");
+	public static final String CHECKER_BLACK_KING_IMAGE_PATH    = BOARD_BUNDLE.getString("piece.checker.black.king");
 }

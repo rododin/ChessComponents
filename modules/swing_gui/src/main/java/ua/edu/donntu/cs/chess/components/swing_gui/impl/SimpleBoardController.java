@@ -8,10 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.atomic.AtomicReference;
 
+import ua.edu.donntu.cs.chess.components.model.Board;
+import ua.edu.donntu.cs.chess.components.model.board8x8.Board8x8;
 import ua.edu.donntu.cs.chess.components.swing_gui.BoardController;
 import ua.edu.donntu.cs.chess.components.swing_gui.BoardView;
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
-import ua.edu.donntu.cs.chess.components.model.chess.board8x8.Board8x8;
 
 /**
  * Description.
@@ -30,29 +30,29 @@ public class SimpleBoardController
 			for (int y = 0; y < board8x8.getHeight(); y++)
 			{ //QUEEN, ROOK, BISHOP, KNIGHT, PAWN
 				/*if(x==5 && y==1)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_KING.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_KING.getPiece());
 				if(x==5 && y==8)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_KING.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_KING.getPiece());
 				if(x==4 && y==1)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_QUEEN.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_QUEEN.getPiece());
 				if(x==4 && y==8)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_QUEEN.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_QUEEN.getPiece());
 				if((x==3 || x==6) && y==1)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_ROOK.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_ROOK.getPiece());
 				if((x==3 || x==6) && y==8)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_ROOK.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_ROOK.getPiece());
 				if((x==2 || x==7) && y==1)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_BISHOP.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_BISHOP.getPiece());
 				if((x==2 || x==7) && y==8)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_BISHOP.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_BISHOP.getPiece());
 				if((x==1 || x==8) && y==1)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_KNIGHT.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_KNIGHT.getPiece());
 				if((x==1 || x==8) && y==8)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_KNIGHT.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_KNIGHT.getPiece());
 				if(y==2)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.WHITE_PAWN.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.WHITE_PAWN.getPiece());
 				if(y==7)
-					board.get().getAreaAt(x, y).setPiece(PieceEnum.BLACK_PAWN.getPiece());
+					board.get().getAreaAt(x, y).setPiece(ChessPieceEnum.BLACK_PAWN.getPiece());
 			*/}
 		board.set(board8x8);
 		boardView.set(new SimpleBoardView());

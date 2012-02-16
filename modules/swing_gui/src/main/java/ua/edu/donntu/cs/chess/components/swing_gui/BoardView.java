@@ -6,7 +6,7 @@ package ua.edu.donntu.cs.chess.components.swing_gui;
 
 import java.awt.event.ActionListener;
 
-import ua.edu.donntu.cs.chess.components.model.chess.BoardListener;
+import ua.edu.donntu.cs.chess.components.model.BoardListener;
 
 /**
  * Description.

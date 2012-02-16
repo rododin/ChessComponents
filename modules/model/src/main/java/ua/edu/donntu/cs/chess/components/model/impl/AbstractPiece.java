@@ -1,24 +1,24 @@
 /*
- * StandardPiece.java
+ * AbstractPiece.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess.impl;
+package ua.edu.donntu.cs.chess.components.model.impl;
 
-import ua.edu.donntu.cs.chess.components.model.chess.Color;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
-import ua.edu.donntu.cs.chess.components.model.chess.PieceName;
+import ua.edu.donntu.cs.chess.components.model.Color;
+import ua.edu.donntu.cs.chess.components.model.Piece;
+import ua.edu.donntu.cs.chess.components.model.PieceName;
 
 /**
  * Description.
  *
  * @author Rod Odin
  */
-public class StandardPiece
+public class AbstractPiece <PN extends PieceName>
 	implements Piece
 {
 // Constructors --------------------------------------------------------------------------------------------------------
 
-	public StandardPiece(PieceName name, Color color)
+	protected AbstractPiece(PN name, Color color)
 	{
 		this.name = name;
 		this.color = color;
@@ -27,7 +27,7 @@ public class StandardPiece
 
 // Piece Implementation ------------------------------------------------------------------------------------------------
 
-	public PieceName getName()
+	public PN getName()
 	{
 		return name;
 	}
@@ -48,7 +48,7 @@ public class StandardPiece
 	{
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		final StandardPiece that = (StandardPiece) o;
+		final AbstractPiece that = (AbstractPiece) o;
 		return color == that.color && name == that.name;
 	}
 
@@ -62,7 +62,7 @@ public class StandardPiece
 
 // Attributes ----------------------------------------------------------------------------------------------------------
 
-	private final PieceName name;
+	private final PN name;
 	private final Color color;
 	private final String string;
 }

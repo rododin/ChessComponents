@@ -9,11 +9,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import ua.edu.donntu.cs.chess.components.model.Area;
+import ua.edu.donntu.cs.chess.components.model.Board;
+import ua.edu.donntu.cs.chess.components.model.Piece;
 import ua.edu.donntu.cs.chess.components.swing_gui.BoardRenderer;
 import ua.edu.donntu.cs.chess.components.swing_gui.Constants;
-import ua.edu.donntu.cs.chess.components.model.chess.Area;
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
 
 /**
  * Description.
@@ -40,7 +40,7 @@ public class SimpleBoardRenderer
 			{
 				final Area area = board.getAreaAt(x, y);
 				LOG.info("Rendering area: position=" + area.getPosition() + ", area=" + area);
-				if (area.getColor() == ua.edu.donntu.cs.chess.components.model.chess.Color.BLACK)
+				if (area.getColor() == ua.edu.donntu.cs.chess.components.model.Color.BLACK)
 					g.setColor(whiteColor);
 				else
 					g.setColor(blackColor);
@@ -57,7 +57,7 @@ public class SimpleBoardRenderer
 				Piece piece = area.getPiece();
 				if (piece != null)
 				{
-					String path = ((RenderablePiece) piece).getPath();
+					//String path = ((RenderableChess/CheckerPiece) piece).getPath();
 					//  Image image = new
 
 					//

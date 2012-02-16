@@ -2,11 +2,9 @@
  * Board.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess;
+package ua.edu.donntu.cs.chess.components.model;
 
 import java.util.Map;
-
-import ua.edu.donntu.cs.chess.components.model.Constants;
 
 /**
  * Description.

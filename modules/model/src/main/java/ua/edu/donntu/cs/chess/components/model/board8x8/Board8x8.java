@@ -2,9 +2,9 @@
  * Board8x8.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess.board8x8;
+package ua.edu.donntu.cs.chess.components.model.board8x8;
 
-import ua.edu.donntu.cs.chess.components.model.chess.impl.AbstractBoard;
+import ua.edu.donntu.cs.chess.components.model.impl.AbstractBoard;
 
 /**
  * Description.

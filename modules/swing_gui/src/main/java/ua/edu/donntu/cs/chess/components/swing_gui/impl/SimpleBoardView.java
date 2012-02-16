@@ -13,13 +13,13 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import ua.edu.donntu.cs.chess.components.model.Area;
+import ua.edu.donntu.cs.chess.components.model.Board;
+import ua.edu.donntu.cs.chess.components.model.BoardListener;
+import ua.edu.donntu.cs.chess.components.model.Piece;
 import ua.edu.donntu.cs.chess.components.swing_gui.BoardRenderer;
 import ua.edu.donntu.cs.chess.components.swing_gui.BoardView;
 import ua.edu.donntu.cs.chess.components.swing_gui.Constants;
-import ua.edu.donntu.cs.chess.components.model.chess.Area;
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
-import ua.edu.donntu.cs.chess.components.model.chess.BoardListener;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
 
 /**
  * Description.

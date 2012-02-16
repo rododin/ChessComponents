@@ -2,7 +2,7 @@
  * AbstractBoard.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess.impl;
+package ua.edu.donntu.cs.chess.components.model.impl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,13 +11,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
-import ua.edu.donntu.cs.chess.components.model.chess.Area;
-import ua.edu.donntu.cs.chess.components.model.chess.Board;
-import ua.edu.donntu.cs.chess.components.model.chess.BoardException;
-import ua.edu.donntu.cs.chess.components.model.chess.BoardListener;
-import ua.edu.donntu.cs.chess.components.model.chess.Color;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
-import ua.edu.donntu.cs.chess.components.model.chess.Position;
+import ua.edu.donntu.cs.chess.components.model.Area;
+import ua.edu.donntu.cs.chess.components.model.Board;
+import ua.edu.donntu.cs.chess.components.model.BoardException;
+import ua.edu.donntu.cs.chess.components.model.BoardListener;
+import ua.edu.donntu.cs.chess.components.model.Color;
+import ua.edu.donntu.cs.chess.components.model.Piece;
+import ua.edu.donntu.cs.chess.components.model.Position;
 
 /**
  * Description.

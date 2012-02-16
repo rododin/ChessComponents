@@ -2,15 +2,15 @@
  * StandardArea.java
  */
 
-package ua.edu.donntu.cs.chess.components.model.chess.impl;
+package ua.edu.donntu.cs.chess.components.model.impl;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import ua.edu.donntu.cs.chess.components.model.Area;
+import ua.edu.donntu.cs.chess.components.model.Color;
 import ua.edu.donntu.cs.chess.components.model.Constants;
-import ua.edu.donntu.cs.chess.components.model.chess.Area;
-import ua.edu.donntu.cs.chess.components.model.chess.Color;
-import ua.edu.donntu.cs.chess.components.model.chess.Piece;
-import ua.edu.donntu.cs.chess.components.model.chess.Position;
+import ua.edu.donntu.cs.chess.components.model.Piece;
+import ua.edu.donntu.cs.chess.components.model.Position;
 
 /**
  * Description.

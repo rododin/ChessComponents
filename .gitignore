@@ -5,3 +5,6 @@
 /modules/rules/target
 /modules/uci/target
 /modules/swing_gui/target
+
+/modules/swing_gui/workdir/chess-components-exceptions.log
+/modules/swing_gui/workdir/chess-components.log

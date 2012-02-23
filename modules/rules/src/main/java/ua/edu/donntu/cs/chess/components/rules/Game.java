@@ -13,9 +13,10 @@ import ua.edu.donntu.cs.chess.components.model.Board;
  */
 public interface Game
 {
-  Board getBoard();
-  String getMoves();
-  void addMove(String lastMove);
-  //...
+	Board getBoard();
+	String getMoves();
+	String getLastMove();
+	void addMove(String lastMove);
+	//...
 }
 

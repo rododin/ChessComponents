@@ -20,36 +20,38 @@ public class GameImpl
 	private Board8x8 board;
 	private String moves;
 	private String lastMove;
-public GameImpl()
-{
-	board = new Board8x8();
-	StandardChessBoard8x8Setup standardBoardSetup = new StandardChessBoard8x8Setup();
-	standardBoardSetup.setup(board);
-	moves = "";
-	lastMove = "";
+
+	public GameImpl()
+	{
+		board = new Board8x8();
+		StandardChessBoard8x8Setup standardBoardSetup = new StandardChessBoard8x8Setup();
+		standardBoardSetup.setup(board);
+		moves = "";
+		lastMove = "";
+	}
+
+	@Override
+	public Board getBoard()
+	{
+		return board;
+	}
+
+	@Override
+	public String getMoves()
+	{
+		return moves;
+	}
+
+	@Override
+	public String getLastMove()
+	{
+		return lastMove;
+	}
+
+	@Override
+	public void addMove(String move)
+	{
+		lastMove = move;
+		moves += move;
+	}
 }
-
-  @Override
-  public Board getBoard()
-  {
-    return board;
-  }
-
-  @Override
-  public String getMoves()
-  {
-    return moves;
-  }
-    @Override
-    public String getLastMove()
-    {
-        return lastMove;
-    }
-  @Override
-  public void addMove(String move)
-  {
-      lastMove = move;
-      moves += move;
-  }
-}
-

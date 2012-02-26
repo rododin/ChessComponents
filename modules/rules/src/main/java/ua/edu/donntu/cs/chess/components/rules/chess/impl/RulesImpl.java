@@ -20,10 +20,6 @@ import java.util.Map;
 public class RulesImpl
 	implements Rules
 {
-	public RulesImpl()
-	{
-	}
-
 	@Override
 	public boolean checkMove(Game game, String move)
 	{
@@ -35,11 +31,7 @@ public class RulesImpl
 		// move - the move to be done next after the already done ones
 		// We should check whether the move is correct or not
 
-		final String startPositionLabel = move.substring(0, 2); // first 2 characters identify the initial position of the piece to be moved
-		final String endPositionLabel   = move.substring(2, 4); // last 2 characters identify the target position of the piece to be moved
-
 		// Initial and target coordinates of the piece to be moved
-
 		final int startX = move.charAt(0) - 'a';
 		final int startY = move.charAt(1) - '1';
 		final int endX = move.charAt(2) - 'a';
@@ -50,15 +42,22 @@ public class RulesImpl
 		// LOG.info("S:"+startPosition.getXLabel()+startPosition.getYLabel());
 		// LOG.info("E:"+endPosition.getXLabel()+endPosition.getYLabel());
 
+		if (startPosition == endPosition)
+			return false;
+
 		final Map<Position,Area> areaMap = board.getAreaMap();
 		final Area area = areaMap.get(startPosition);
+		final Piece piece = area.getPiece();
 
-		if (area.getPiece().getColor() == Color.WHITE)// set colorFrag, as inverse of color
-			colorOpponent = Color.BLACK;              // moved piece
-		else                                          //
-			colorOpponent = Color.WHITE;              //
+		if (piece == null)
+			return false;
 
-		switch ((ChessPieceName)area.getPiece().getName())
+		if (piece.getColor() == Color.WHITE)// set colorFrag, as inverse of color
+			colorOpponent = Color.BLACK;    // moved piece
+		else                                //
+			colorOpponent = Color.WHITE;    //
+
+		switch ((ChessPieceName)piece.getName())
 		{
 			case PAWN:
 				return checkPawn(board, startPosition, endPosition, colorOpponent);

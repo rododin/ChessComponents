@@ -4,10 +4,7 @@
 
 package ua.edu.donntu.cs.chess.components.rules.chess.impl;
 
-import ua.edu.donntu.cs.chess.components.model.Area;
-import ua.edu.donntu.cs.chess.components.model.Board;
-import ua.edu.donntu.cs.chess.components.model.Color;
-import ua.edu.donntu.cs.chess.components.model.Position;
+import ua.edu.donntu.cs.chess.components.model.*;
 import ua.edu.donntu.cs.chess.components.model.chess.ChessPieceName;
 import ua.edu.donntu.cs.chess.components.model.impl.StandardPosition;
 import ua.edu.donntu.cs.chess.components.rules.Game;
@@ -50,51 +47,41 @@ public class RulesImpl
 
 		final Position startPosition = new StandardPosition(startX, startY);
 		final Position endPosition = new StandardPosition(endX, endY);
-	//	LOG.info("S:"+startPosition.getXLabel()+startPosition.getYLabel());
-	//	LOG.info("E:"+endPosition.getXLabel()+endPosition.getYLabel());
+		// LOG.info("S:"+startPosition.getXLabel()+startPosition.getYLabel());
+		// LOG.info("E:"+endPosition.getXLabel()+endPosition.getYLabel());
 
 		final Map<Position,Area> areaMap = board.getAreaMap();
-		for (Map.Entry<Position, Area> areaEntry : areaMap.entrySet())
+		final Area area = areaMap.get(startPosition);
+
+		if (area.getPiece().getColor() == Color.WHITE)// set colorFrag, as inverse of color
+			colorOpponent = Color.BLACK;              // moved piece
+		else                                          //
+			colorOpponent = Color.WHITE;              //
+
+		switch ((ChessPieceName)area.getPiece().getName())
 		{
-			final Position position = areaEntry.getKey();
-			LOG.info(position.getXLabel()+position.getYLabel());
-
-			final Area area = areaEntry.getValue();
-
-			if (area.getPiece().getColor() == Color.WHITE)// set colorFrag, as inverse of color
-				colorOpponent = Color.BLACK;              // moved piece
-			else                                          //
-				colorOpponent = Color.WHITE;              //
-
-			if((position.hashCode() == startPosition.hashCode())&&(area.getPiece() != null))
-			{
-				switch ((ChessPieceName)area.getPiece().getName())
-				{
-					case PAWN:{
-						return checkPawn(board, startPosition, endPosition, colorOpponent);
-					}
-					case ROOK:{
-						return checkRook(board, startPosition, endPosition, colorOpponent);
-					}
-					case KNIGHT:{
-						return checkKnight(board, startPosition, endPosition, colorOpponent);
-					}
-					case BISHOP:{
-						return checkBishop(board, startPosition, endPosition, colorOpponent);
-					}
-					case KING:{
-						return checkKing(board, startPosition, endPosition, colorOpponent);
-					}
-					case QUEEN:{
-						return checkQueen(board, startPosition, endPosition, colorOpponent);
-					}
-					default:{
-						break;
-					}
-				}
+			case PAWN:{
+				return checkPawn(board, startPosition, endPosition, colorOpponent);
+			}
+			case ROOK:{
+				return checkRook(board, startPosition, endPosition, colorOpponent);
+			}
+			case KNIGHT:{
+				return checkKnight(board, startPosition, endPosition, colorOpponent);
+			}
+			case BISHOP:{
+				return checkBishop(board, startPosition, endPosition, colorOpponent);
+			}
+			case KING:{
+				return checkKing(board, startPosition, endPosition, colorOpponent);
+			}
+			case QUEEN:{
+				return checkQueen(board, startPosition, endPosition, colorOpponent);
+			}
+			default:{
+				return false;
 			}
 		}
-		return false;
 	}
 
 	private boolean checkRook(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
@@ -208,37 +195,41 @@ public class RulesImpl
 	}
 
 	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOponent) {
-		int firstStep = 1; // if this pawn never went, then firstStep = 2;
-		if (startPosition.getY() == 1)
-			firstStep = 2;
+		int maxStep = 1;
+		if (colorOponent == Color.BLACK && startPosition.getY() == 1)
+			maxStep = 2;
+		else if (colorOponent == Color.WHITE && startPosition.getY() == 6)
+			maxStep = 2;
 
-		if (startPosition.getY() + firstStep < endPosition.getY())
+		// check move distance
+		final int yDiff = endPosition.getY() - startPosition.getY();
+		final int yAbsDiff = Math.abs(yDiff);
+		if (yAbsDiff > maxStep)
 			return false;
 
 		final Map<Position,Area> areaMap = board.getAreaMap();
+		final Area endArea = areaMap.get(endPosition);
+		final Piece endPiece = endArea.getPiece();
 
-		for (Map.Entry<Position, Area> areaEntry : areaMap.entrySet())
+		// check simple move
+		if (endPiece == null)
 		{
-			final Position position = areaEntry.getKey();
-
-			final Area area = areaEntry.getValue();
-
-			// check simple move
-			if (((startPosition.getY() != endPosition.getY()) &&
-				(startPosition.getX() == endPosition.getX())) ||
-				((startPosition.getY() == endPosition.getY()) &&
-				(startPosition.getX() != endPosition.getX())) &&
-				(area.getPiece() != null))
-				return false;
-
-			// check move with fight
-			if ((position.getY() == startPosition.getY() + 1)&&
-				(position.getY() == endPosition.getY()) &&
-				(position.getX() == endPosition.getX()) &&
-				((startPosition.getX() - 1 == endPosition.getX())||(startPosition.getX() +1 == endPosition.getX())) &&
-				((area.getPiece() == null) || (area.getPiece().getColor() !=colorOponent)))
-				return false;
+			if (yAbsDiff == 2)
+			{
+				final int middleY = startPosition.getY() + (int)Math.signum(yDiff);
+				Position middlePosition = new StandardPosition(startPosition.getX(), middleY);
+				Area middleArea = areaMap.get(middlePosition);
+				Piece middlePiece = middleArea.getPiece();
+				if (middlePiece != null)
+					return false;
+			}
+			return endPosition.getX() == startPosition.getX();
 		}
-		return true;
+
+		// check move with fight
+		if (endPiece.getColor() == colorOponent)
+			return yAbsDiff == 1;
+
+		return false;
 	}
 }

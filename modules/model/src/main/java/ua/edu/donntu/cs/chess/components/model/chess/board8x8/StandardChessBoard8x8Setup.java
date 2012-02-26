@@ -20,7 +20,7 @@ public class StandardChessBoard8x8Setup
 {
 	public void setup(Board board)
 	{
-// White pieces:
+		// White pieces:
 		board.getAreaAt(0, 0).setPiece(new StandardChessPiece(ChessPieceName.ROOK, Color.WHITE));
 		board.getAreaAt(1, 0).setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.WHITE));
 		board.getAreaAt(2, 0).setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.WHITE));
@@ -29,15 +29,12 @@ public class StandardChessBoard8x8Setup
 		board.getAreaAt(5, 0).setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.WHITE));
 		board.getAreaAt(6, 0).setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.WHITE));
 		board.getAreaAt(7, 0).setPiece(new StandardChessPiece(ChessPieceName.ROOK, Color.WHITE));
-		board.getAreaAt(0, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(1, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(2, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(4, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(5, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(6, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		board.getAreaAt(7, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
 
-	// Black pieces:
+		for (int i = 0; i < 8; i++) {
+			board.getAreaAt(i, 1).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		}
+
+		// Black pieces:
 		board.getAreaAt(0, 7).setPiece(new StandardChessPiece(ChessPieceName.ROOK, Color.BLACK));
 		board.getAreaAt(1, 7).setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.BLACK));
 		board.getAreaAt(2, 7).setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.BLACK));
@@ -46,12 +43,9 @@ public class StandardChessBoard8x8Setup
 		board.getAreaAt(5, 7).setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.BLACK));
 		board.getAreaAt(6, 7).setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.BLACK));
 		board.getAreaAt(7, 7).setPiece(new StandardChessPiece(ChessPieceName.ROOK, Color.BLACK));
-		board.getAreaAt(0, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(1, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(2, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(4, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(5, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(6, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		board.getAreaAt(7, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+
+		for (int i = 0; i < 8; i++) {
+			board.getAreaAt(i, 6).setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		}
 	}
 }

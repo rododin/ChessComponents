@@ -60,31 +60,25 @@ public class RulesImpl
 
 		switch ((ChessPieceName)area.getPiece().getName())
 		{
-			case PAWN:{
+			case PAWN:
 				return checkPawn(board, startPosition, endPosition, colorOpponent);
-			}
-			case ROOK:{
+			case ROOK:
 				return checkRook(board, startPosition, endPosition, colorOpponent);
-			}
-			case KNIGHT:{
+			case KNIGHT:
 				return checkKnight(board, startPosition, endPosition, colorOpponent);
-			}
-			case BISHOP:{
+			case BISHOP:
 				return checkBishop(board, startPosition, endPosition, colorOpponent);
-			}
-			case KING:{
+			case KING:
 				return checkKing(board, startPosition, endPosition, colorOpponent);
-			}
-			case QUEEN:{
+			case QUEEN:
 				return checkQueen(board, startPosition, endPosition, colorOpponent);
-			}
-			default:{
+			default:
 				return false;
-			}
 		}
 	}
 
-	private boolean checkRook(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
+	private boolean checkRook(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	{
 		if ((startPosition.getX() != endPosition.getX()) && (startPosition.getY() != endPosition.getY()))
 			return false;// Rook goes only horizontally and vertically
 
@@ -107,7 +101,8 @@ public class RulesImpl
 		return true;
 	}
 
-	private boolean checkBishop(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
+	private boolean checkBishop(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	{
 		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
 				(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == colorOpponent))
 		{
@@ -120,7 +115,8 @@ public class RulesImpl
 			return false;
 	}
 
-	private boolean checkQueen(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
+	private boolean checkQueen(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	{
 		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
 			(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == colorOpponent))
 		{
@@ -154,7 +150,8 @@ public class RulesImpl
 		return false;
 	}
 
-	private boolean checkKnight(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
+	private boolean checkKnight(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	{
 		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
 			(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == colorOpponent))
 		{
@@ -174,7 +171,8 @@ public class RulesImpl
 			return false;
 	}
 
-	private boolean checkKing(Board board, Position startPosition, Position endPosition, Color colorOpponent) {
+	private boolean checkKing(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	{
 		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
 				(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == colorOpponent))
 		{
@@ -194,7 +192,8 @@ public class RulesImpl
 			return false;
 	}
 
-	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOponent) {
+	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOponent)
+	{
 		int maxStep = 1;
 		if (colorOponent == Color.BLACK && startPosition.getY() == 1)
 			maxStep = 2;

@@ -189,18 +189,24 @@ public class RulesImpl
 			return false;
 	}
 
-	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOponent)
+	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOpponent)
 	{
 		int maxStep = 1;
-		if (colorOponent == Color.BLACK && startPosition.getY() == 1)
+		if (colorOpponent == Color.BLACK && startPosition.getY() == 1)
 			maxStep = 2;
-		else if (colorOponent == Color.WHITE && startPosition.getY() == 6)
+		else if (colorOpponent == Color.WHITE && startPosition.getY() == 6)
 			maxStep = 2;
 
 		// check move distance
 		final int yDiff = endPosition.getY() - startPosition.getY();
 		final int yAbsDiff = Math.abs(yDiff);
+		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
 		if (yAbsDiff > maxStep)
+			return false;
+
+		// check move direction
+		final int allowed = (colorOpponent == Color.BLACK) ? 1 : -1;
+		if (yDiff*allowed < 0)
 			return false;
 
 		final Piece endPiece = getPiece(board, endPosition);
@@ -220,8 +226,8 @@ public class RulesImpl
 		}
 
 		// check move with fight
-		if (endPiece.getColor() == colorOponent)
-			return yAbsDiff == 1;
+		if (endPiece.getColor() == colorOpponent)
+			return xAbsDiff == 1;
 
 		return false;
 	}

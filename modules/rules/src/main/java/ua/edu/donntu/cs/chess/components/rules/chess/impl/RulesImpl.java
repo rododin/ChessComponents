@@ -151,23 +151,21 @@ public class RulesImpl
 
 	private boolean checkKnight(Board board, Position startPosition, Position endPosition, Color colorOpponent)
 	{
-		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
-			(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == colorOpponent))
-		{
-			if (((startPosition.getX() + 1 == endPosition.getX()) && (startPosition.getY() + 2 == endPosition.getY())) ||
-				((startPosition.getX() + 2 == endPosition.getX()) && (startPosition.getY() + 1 == endPosition.getY())) ||
-				((startPosition.getX() + 2 == endPosition.getX()) && (startPosition.getY() - 1 == endPosition.getY())) ||
-				((startPosition.getX() + 1 == endPosition.getX()) && (startPosition.getY() - 2 == endPosition.getY())) ||
-				((startPosition.getX() - 1 == endPosition.getX()) && (startPosition.getY() - 2 == endPosition.getY())) ||
-				((startPosition.getX() - 2 == endPosition.getX()) && (startPosition.getY() - 1 == endPosition.getY())) ||
-				((startPosition.getX() - 2 == endPosition.getX()) && (startPosition.getY() + 1 == endPosition.getY())) ||
-				((startPosition.getX() - 1 == endPosition.getX()) && (startPosition.getY() + 2 == endPosition.getY()))    )
-				return true;
-			else
-				return false;
-		}
-		else
+		final int yAbsDiff = Math.abs(endPosition.getY() - startPosition.getY());
+		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
+
+		// check move distances
+		if (!(yAbsDiff == 2 && xAbsDiff == 1 || yAbsDiff == 1 && xAbsDiff == 2))
 			return false;
+
+		final Piece endPiece = getPiece(board, endPosition);
+
+		// check simple move
+		if (endPiece == null)
+			return true;
+
+		// check simple move
+		return endPiece.getColor() == colorOpponent;
 	}
 
 	private boolean checkKing(Board board, Position startPosition, Position endPosition, Color colorOpponent)
@@ -205,9 +203,7 @@ public class RulesImpl
 		if (yAbsDiff > maxStep)
 			return false;
 
-		final Map<Position,Area> areaMap = board.getAreaMap();
-		final Area endArea = areaMap.get(endPosition);
-		final Piece endPiece = endArea.getPiece();
+		final Piece endPiece = getPiece(board, endPosition);
 
 		// check simple move
 		if (endPiece == null)
@@ -216,8 +212,7 @@ public class RulesImpl
 			{
 				final int middleY = startPosition.getY() + (int)Math.signum(yDiff);
 				Position middlePosition = new StandardPosition(startPosition.getX(), middleY);
-				Area middleArea = areaMap.get(middlePosition);
-				Piece middlePiece = middleArea.getPiece();
+				Piece middlePiece = getPiece(board, middlePosition);
 				if (middlePiece != null)
 					return false;
 			}
@@ -229,5 +224,11 @@ public class RulesImpl
 			return yAbsDiff == 1;
 
 		return false;
+	}
+
+	private Piece getPiece(Board board, Position position)
+	{
+		final Area endArea = board.getAreaAt(position.getX(), position.getY());
+		return endArea.getPiece();
 	}
 }

@@ -60,7 +60,7 @@ public class RulesImpl
 		switch ((ChessPieceName)piece.getName())
 		{
 			case PAWN:
-				return checkPawn(board, startPosition, endPosition, colorOpponent);
+				return checkPawn(board, startPosition, endPosition, colorOpponent, game.getLastMove());
 			case ROOK:
 				return checkRook(board, startPosition, endPosition, colorOpponent);
 			case KNIGHT:
@@ -189,7 +189,7 @@ public class RulesImpl
 			return false;
 	}
 
-	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOpponent)
+	private boolean checkPawn(Board board, Position startPosition, Position endPosition, Color colorOpponent, String lastMove)
 	{
 		int maxStep = 1;
 		if (colorOpponent == Color.BLACK && startPosition.getY() == 1)
@@ -216,13 +216,20 @@ public class RulesImpl
 		{
 			if (yAbsDiff == 2)
 			{
+				// check long move
 				final int middleY = startPosition.getY() + (int)Math.signum(yDiff);
 				Position middlePosition = new StandardPosition(startPosition.getX(), middleY);
 				Piece middlePiece = getPiece(board, middlePosition);
 				if (middlePiece != null)
 					return false;
 			}
-			return endPosition.getX() == startPosition.getX();
+			else if (xAbsDiff == 1)
+			{
+				// check En Passant
+				if (isEnPassant(board, startPosition, endPosition.getX(), lastMove))
+					return true;
+			}
+			return xAbsDiff == 0;
 		}
 
 		// check move with fight
@@ -230,6 +237,28 @@ public class RulesImpl
 			return xAbsDiff == 1;
 
 		return false;
+	}
+
+	private boolean isEnPassant(Board board, Position startPosition, int x, String lastMove)
+	{
+		if (lastMove.isEmpty())
+			return false;
+
+		final int startX = lastMove.charAt(0) - 'a';
+		final int startY = lastMove.charAt(1) - '1';
+		final int endX = lastMove.charAt(2) - 'a';
+		final int endY = lastMove.charAt(3) - '1';
+
+		if (getPiece(board, new StandardPosition(endX, endY)).getName() != ChessPieceName.PAWN)
+			return false;
+
+		if (Math.abs(endY - startY) != 2)
+			return false;
+
+		if (endX != x)
+			return false;
+
+		return true;
 	}
 
 	private Piece getPiece(Board board, Position position)

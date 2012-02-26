@@ -104,6 +104,47 @@ public class PawnTest
 		assertFalse(rules.checkMove(game, "a5a7"));
 	}
 
+	@Test
+	public void testPawnCantJumpOverAnotherPiece()
+	{
+		getAreaAt("a3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+
+		assertFalse(rules.checkMove(game, "a2a4"));
+	}
+
+	@Test
+	public void testCorrectEnPassant()
+	{
+		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		getAreaAt("a2").setPiece(null);
+
+		game.addMove("a2a4");
+		assertTrue(rules.checkMove(game, "b4a3"));
+	}
+
+	@Test
+	public void testWrongEnPassantBadDistance()
+	{
+		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		getAreaAt("a2").setPiece(null);
+
+		game.addMove("a3a4");
+		assertFalse(rules.checkMove(game, "b4a3"));
+	}
+
+	@Test
+	public void testWrongEnPassantWrongFigure()
+	{
+		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.WHITE));
+		getAreaAt("a2").setPiece(null);
+
+		game.addMove("a2a4");
+		assertFalse(rules.checkMove(game, "b4a3"));
+	}
+
 	private Area getAreaAt(String position)
 	{
 		final int x = position.charAt(0) - 'a';

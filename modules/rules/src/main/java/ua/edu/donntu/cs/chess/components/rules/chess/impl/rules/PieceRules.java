@@ -54,6 +54,28 @@ public abstract class PieceRules
 		return endArea.getPiece();
 	}
 
+	protected boolean arePiecesOnTheWay()
+	{
+		final int yDiff = endPosition.getY() - startPosition.getY();
+		final int xDiff = endPosition.getX() - startPosition.getX();
+		final int yDelta = yDiff/Math.abs(yDiff);
+		final int xDelta = xDiff/Math.abs(xDiff);
+
+		Position runner = new StandardPosition(startPosition.getX() + xDelta,
+				startPosition.getY() + yDelta);
+		while (!runner.equals(endPosition))
+		{
+			final Piece piece = getPiece(board, runner);
+			if (piece != null)
+			{
+				return true;
+			}
+			runner = new StandardPosition(runner.getX() + xDelta,
+					runner.getY() + yDelta);
+		}
+		return false;
+	}
+
 	protected Board board;
 	protected Color ourColor;
 	protected Color opponentColor;

@@ -16,15 +16,27 @@ public class BishopRules
 {
 	public boolean isMovePossible()
 	{
-		if ((board.getAreaAt(endPosition.getX(), endPosition.getY()).getPiece() == null)||
-				(board.getAreaAt(endPosition.getX(), endPosition.getY()).getPiece().getColor() == opponentColor))
+		// check move direction
+		final int yDiff = endPosition.getY() - startPosition.getY();
+		final int xDiff = endPosition.getX() - startPosition.getX();
+		if (Math.abs(yDiff) != Math.abs(xDiff))
 		{
-			if (Math.abs(startPosition.getX() - endPosition.getX()) != Math.abs(startPosition.getY() - endPosition.getY()))
-				return false;
-			else
-				return true;
-		}
-		else
 			return false;
+		}
+
+		// check move with fight
+		final Piece endPiece = getPiece(board, endPosition);
+		if (endPiece != null && endPiece.getColor() != opponentColor)
+		{
+			return false;
+		}
+
+		// check pieces on the way
+		if (arePiecesOnTheWay())
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

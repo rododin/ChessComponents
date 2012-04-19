@@ -16,22 +16,21 @@ public class KingRules
 {
 	public boolean isMovePossible()
 	{
-		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
-				(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == opponentColor))
+		// check move distance
+		final int yAbsDiff = Math.abs(endPosition.getY() - startPosition.getY());
+		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
+		if (yAbsDiff > 1 || xAbsDiff > 1)
 		{
-			if (((startPosition.getX() - 1 	== endPosition.getX()) && (startPosition.getY() - 1 == endPosition.getY())) ||
-				((startPosition.getX() 		== endPosition.getX()) && (startPosition.getY() - 1 == endPosition.getY())) ||
-				((startPosition.getX() + 1 	== endPosition.getX()) && (startPosition.getY() - 1 == endPosition.getY())) ||
-				((startPosition.getX() + 1 	== endPosition.getX()) && (startPosition.getY() 	== endPosition.getY())) ||
-				((startPosition.getX() + 1 	== endPosition.getX()) && (startPosition.getY() + 1 == endPosition.getY())) ||
-				((startPosition.getX() 		== endPosition.getX()) && (startPosition.getY() + 1 == endPosition.getY())) ||
-				((startPosition.getX() - 1 	== endPosition.getX()) && (startPosition.getY() + 1 == endPosition.getY())) ||
-				((startPosition.getX() - 1 	== endPosition.getX()) && (startPosition.getY() 	== endPosition.getY()))    )
-				return true;
-			else
-				return false;
-		}
-		else
 			return false;
+		}
+
+		// check move with fight
+		final Piece endPiece = getPiece(board, endPosition);
+		if (endPiece != null && endPiece.getColor() != opponentColor)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

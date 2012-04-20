@@ -18,25 +18,27 @@ public class RookRules
 {
 	public boolean isMovePossible()
 	{
-		if ((startPosition.getX() != endPosition.getX()) && (startPosition.getY() != endPosition.getY()))
-			return false;// Rook goes only horizontally and vertically
-
-		final Map<Position,Area> areaMap = board.getAreaMap();
-
-		for (Map.Entry<Position, Area> areaEntry : areaMap.entrySet())
+		// check move direction
+		final int yDiff = endPosition.getY() - startPosition.getY();
+		final int xDiff = endPosition.getX() - startPosition.getX();
+		if (yDiff != 0 && xDiff != 0)
 		{
-			final Position position = areaEntry.getKey();
-			final Area area = areaEntry.getValue();
-			if ((position.getX() == endPosition.getX()) || (position.getY() == endPosition.getY())) // compare only Horizontal and Vertical cells
-				if ((area.getPiece() != null) &&
-					(position.hashCode() != endPosition.hashCode()) &&
-					(position.hashCode() != startPosition.hashCode()))
-					return false;
-				else
-					if (((area.getPiece() == null)||(area.getPiece() != null && area.getPiece().getColor() == opponentColor)) &&
-						(position.hashCode() == endPosition.hashCode())) // If this move take piece
-						return true;
+			return false;
 		}
+
+		// check move with fight
+		final Piece endPiece = getPiece(board, endPosition);
+		if (endPiece != null && endPiece.getColor() != opponentColor)
+		{
+			return false;
+		}
+
+		// check pieces on the way
+		if (arePiecesOnTheWay())
+		{
+			return false;
+		}
+
 		return true;
 	}
 }

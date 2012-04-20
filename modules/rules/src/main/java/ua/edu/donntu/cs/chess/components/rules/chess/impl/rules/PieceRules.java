@@ -58,8 +58,8 @@ public abstract class PieceRules
 	{
 		final int yDiff = endPosition.getY() - startPosition.getY();
 		final int xDiff = endPosition.getX() - startPosition.getX();
-		final int yDelta = yDiff/Math.abs(yDiff);
-		final int xDelta = xDiff/Math.abs(xDiff);
+		final int yDelta = yDiff/((yDiff != 0) ? Math.abs(yDiff) : 1);
+		final int xDelta = xDiff/((xDiff != 0) ? Math.abs(xDiff) : 1);
 
 		Position runner = new StandardPosition(startPosition.getX() + xDelta,
 				startPosition.getY() + yDelta);

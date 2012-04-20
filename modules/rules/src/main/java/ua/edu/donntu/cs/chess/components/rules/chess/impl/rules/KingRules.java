@@ -16,21 +16,6 @@ public class KingRules
 {
 	public boolean isMovePossible()
 	{
-		// check move distance
-		final int yAbsDiff = Math.abs(endPosition.getY() - startPosition.getY());
-		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
-		if (yAbsDiff > 1 || xAbsDiff > 1)
-		{
-			return false;
-		}
-
-		// check move with fight
-		final Piece endPiece = getPiece(board, endPosition);
-		if (endPiece != null && endPiece.getColor() != opponentColor)
-		{
-			return false;
-		}
-
-		return true;
+		return ((yAbsDiff <= 1 && xAbsDiff <= 1) && checkFight());
 	}
 }

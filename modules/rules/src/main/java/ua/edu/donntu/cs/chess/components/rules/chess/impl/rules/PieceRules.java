@@ -27,6 +27,12 @@ public abstract class PieceRules
 	{
 		startPosition = parsePosition(move.substring(0, 2));
 		endPosition = parsePosition(move.substring(2, 4));
+
+		yDiff = endPosition.getY() - startPosition.getY();
+		xDiff = endPosition.getX() - startPosition.getX();
+
+		yAbsDiff = Math.abs(yDiff);
+		xAbsDiff = Math.abs(xDiff);
 	}
 
 	public void setPreviousMove(String move)
@@ -48,24 +54,28 @@ public abstract class PieceRules
 
 	public abstract boolean isMovePossible();
 
-	protected Piece getPiece(Board board, Position position)
+	protected Piece getPiece(Position position)
 	{
 		final Area endArea = board.getAreaAt(position.getX(), position.getY());
 		return endArea.getPiece();
 	}
 
+	protected boolean checkFight()
+	{
+		final Piece endPiece = getPiece(endPosition);
+		return (endPiece == null || endPiece.getColor() == opponentColor);
+    }
+
 	protected boolean arePiecesOnTheWay()
 	{
-		final int yDiff = endPosition.getY() - startPosition.getY();
-		final int xDiff = endPosition.getX() - startPosition.getX();
-		final int yDelta = yDiff/((yDiff != 0) ? Math.abs(yDiff) : 1);
-		final int xDelta = xDiff/((xDiff != 0) ? Math.abs(xDiff) : 1);
+		final int yDelta = yDiff/((yDiff != 0) ? yAbsDiff : 1);
+		final int xDelta = xDiff/((xDiff != 0) ? xAbsDiff : 1);
 
 		Position runner = new StandardPosition(startPosition.getX() + xDelta,
 				startPosition.getY() + yDelta);
 		while (!runner.equals(endPosition))
 		{
-			final Piece piece = getPiece(board, runner);
+			final Piece piece = getPiece(runner);
 			if (piece != null)
 			{
 				return true;
@@ -76,10 +86,11 @@ public abstract class PieceRules
 		return false;
 	}
 
-	protected Board board;
 	protected Color ourColor;
-	protected Color opponentColor;
 	protected boolean previousMoveExists;
+
+    protected int yDiff, xDiff;
+    protected int yAbsDiff, xAbsDiff;
 
 	// positions of current move
 	protected Position startPosition;
@@ -88,4 +99,7 @@ public abstract class PieceRules
 	// positions of previous move
 	protected Position prevStartPosition;
 	protected Position prevEndPosition;
+
+	private Board board;
+	private Color opponentColor;
 }

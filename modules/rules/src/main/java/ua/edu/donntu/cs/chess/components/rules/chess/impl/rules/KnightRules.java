@@ -16,20 +16,7 @@ public class KnightRules
 {
 	public boolean isMovePossible()
 	{
-		final int yAbsDiff = Math.abs(endPosition.getY() - startPosition.getY());
-		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
-
-		// check move distances
-		if (!(yAbsDiff == 2 && xAbsDiff == 1 || yAbsDiff == 1 && xAbsDiff == 2))
-			return false;
-
-		final Piece endPiece = getPiece(board, endPosition);
-
-		// check simple move
-		if (endPiece == null)
-			return true;
-
-		// check simple move
-		return endPiece.getColor() == opponentColor;
+		return (((yAbsDiff == 2 && xAbsDiff == 1 || yAbsDiff == 1 && xAbsDiff == 2)) &&
+				checkFight());
 	}
 }

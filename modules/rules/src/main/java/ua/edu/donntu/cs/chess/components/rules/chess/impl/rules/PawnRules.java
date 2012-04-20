@@ -23,9 +23,6 @@ public class PawnRules
 			maxStep = 2;
 
 		// check move distance
-		final int yDiff = endPosition.getY() - startPosition.getY();
-		final int yAbsDiff = Math.abs(yDiff);
-		final int xAbsDiff = Math.abs(endPosition.getX() - startPosition.getX());
 		if (yAbsDiff > maxStep)
 			return false;
 
@@ -34,7 +31,7 @@ public class PawnRules
 		if (yDiff*allowed < 0)
 			return false;
 
-		final Piece endPiece = getPiece(board, endPosition);
+		final Piece endPiece = getPiece(endPosition);
 
 		// check simple move
 		if (endPiece == null)
@@ -44,7 +41,7 @@ public class PawnRules
 				// check long move
 				final int middleY = startPosition.getY() + (int)Math.signum(yDiff);
 				Position middlePosition = new StandardPosition(startPosition.getX(), middleY);
-				Piece middlePiece = getPiece(board, middlePosition);
+				Piece middlePiece = getPiece(middlePosition);
 				if (middlePiece != null)
 					return false;
 			}
@@ -58,7 +55,7 @@ public class PawnRules
 		}
 
 		// check move with fight
-		if (endPiece.getColor() == opponentColor)
+		if (endPiece.getColor() != ourColor)
 			return xAbsDiff == 1;
 
 		return false;
@@ -69,7 +66,7 @@ public class PawnRules
 		if (!previousMoveExists)
 			return false;
 
-		if (getPiece(board, prevEndPosition).getName() != ChessPieceName.PAWN)
+		if (getPiece(prevEndPosition).getName() != ChessPieceName.PAWN)
 			return false;
 
 		if (Math.abs(prevEndPosition.getY() - prevStartPosition.getY()) != 2)

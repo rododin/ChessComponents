@@ -20,8 +20,8 @@ public class KingTest
 	{
 		rules = new RulesImpl();
 		game = new GameImpl();
-		getAreaAt("d4").setPiece(new StandardChessPiece(ChessPieceName.KING, Color.WHITE));
-		getAreaAt("e7").setPiece(new StandardChessPiece(ChessPieceName.KING, Color.WHITE));
+		TestUtils.getAreaAt(game, "d4").setPiece(new StandardChessPiece(ChessPieceName.KING, Color.WHITE));
+		TestUtils.getAreaAt(game, "e7").setPiece(new StandardChessPiece(ChessPieceName.KING, Color.WHITE));
 	}
 
 	@Test
@@ -58,15 +58,6 @@ public class KingTest
 	{
 		assertFalse(rules.checkMove(game, "e8d8"));
 		assertFalse(rules.checkMove(game, "e1d2"));
-	}
-
-	private static Area getAreaAt(String position)
-	{
-		final int x = position.charAt(0) - 'a';
-		final int y = position.charAt(1) - '1';
-
-		Board board = game.getBoard();
-		return board.getAreaAt(x, y);
 	}
 
 	private static Rules rules;

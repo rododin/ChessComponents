@@ -75,7 +75,7 @@ public class PawnTest
 	@Test
 	public void testPawnFightsAnotherPawn()
 	{
-		getAreaAt("b3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "b3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
 
 		assertTrue(rules.checkMove(game, "a2b3"));
 		assertTrue(rules.checkMove(game, "c2b3"));
@@ -86,7 +86,7 @@ public class PawnTest
 	@Test
 	public void testPawnCantMoveOverAnotherPawn()
 	{
-		getAreaAt("b3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "b3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
 
 		assertFalse(rules.checkMove(game, "b2b3"));
 		assertFalse(rules.checkMove(game, "b3b2"));
@@ -95,8 +95,8 @@ public class PawnTest
 	@Test
 	public void testPawnCantMoveBack()
 	{
-		getAreaAt("a5").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		TestUtils.getAreaAt(game, "a5").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
 
 		assertFalse(rules.checkMove(game, "a4a3"));
 		assertFalse(rules.checkMove(game, "a4a2"));
@@ -107,7 +107,7 @@ public class PawnTest
 	@Test
 	public void testPawnCantJumpOverAnotherPiece()
 	{
-		getAreaAt("a3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "a3").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
 
 		assertFalse(rules.checkMove(game, "a2a4"));
 	}
@@ -115,9 +115,9 @@ public class PawnTest
 	@Test
 	public void testCorrectEnPassant()
 	{
-		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		getAreaAt("a2").setPiece(null);
+		TestUtils.getAreaAt(game, "b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		TestUtils.getAreaAt(game, "a2").setPiece(null);
 
 		game.addMove("a2a4");
 		assertTrue(rules.checkMove(game, "b4a3"));
@@ -126,9 +126,9 @@ public class PawnTest
 	@Test
 	public void testWrongEnPassantBadDistance()
 	{
-		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
-		getAreaAt("a2").setPiece(null);
+		TestUtils.getAreaAt(game, "b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "a4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.WHITE));
+		TestUtils.getAreaAt(game, "a2").setPiece(null);
 
 		game.addMove("a3a4");
 		assertFalse(rules.checkMove(game, "b4a3"));
@@ -137,21 +137,12 @@ public class PawnTest
 	@Test
 	public void testWrongEnPassantWrongFigure()
 	{
-		getAreaAt("b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
-		getAreaAt("a4").setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.WHITE));
-		getAreaAt("a2").setPiece(null);
+		TestUtils.getAreaAt(game, "b4").setPiece(new StandardChessPiece(ChessPieceName.PAWN, Color.BLACK));
+		TestUtils.getAreaAt(game, "a4").setPiece(new StandardChessPiece(ChessPieceName.KNIGHT, Color.WHITE));
+		TestUtils.getAreaAt(game, "a2").setPiece(null);
 
 		game.addMove("a2a4");
 		assertFalse(rules.checkMove(game, "b4a3"));
-	}
-
-	private Area getAreaAt(String position)
-	{
-		final int x = position.charAt(0) - 'a';
-		final int y = position.charAt(1) - '1';
-
-		Board board = game.getBoard();
-		return board.getAreaAt(x, y);
 	}
 
 	private Rules rules;

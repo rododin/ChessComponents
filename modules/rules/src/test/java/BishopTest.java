@@ -20,7 +20,7 @@ public class BishopTest
 	{
 		rules = new RulesImpl();
 		game = new GameImpl();
-		getAreaAt("d4").setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.WHITE));
+		TestUtils.getAreaAt(game, "d4").setPiece(new StandardChessPiece(ChessPieceName.BISHOP, Color.WHITE));
 	}
 
 	@Test
@@ -75,15 +75,6 @@ public class BishopTest
 	public void testPiecesOnTheWay()
 	{
 		assertFalse(rules.checkMove(game, "d4h8"));
-	}
-
-	private static Area getAreaAt(String position)
-	{
-		final int x = position.charAt(0) - 'a';
-		final int y = position.charAt(1) - '1';
-
-		Board board = game.getBoard();
-		return board.getAreaAt(x, y);
 	}
 
 	private static Rules rules;

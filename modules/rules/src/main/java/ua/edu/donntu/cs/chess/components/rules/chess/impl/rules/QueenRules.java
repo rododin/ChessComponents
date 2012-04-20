@@ -18,36 +18,27 @@ public class QueenRules
 {
 	public boolean isMovePossible()
 	{
-		if ((board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece() == null)||
-			(board.getAreaAt(endPosition.getX(),endPosition.getY()).getPiece().getColor() == opponentColor))
+		// check move direction
+		final int yDiff = endPosition.getY() - startPosition.getY();
+		final int xDiff = endPosition.getX() - startPosition.getX();
+		if (Math.abs(yDiff) != Math.abs(xDiff) && (yDiff != 0 && xDiff != 0))
 		{
-			// check diagonally moves
-			if (Math.abs(startPosition.getX() - endPosition.getX()) != Math.abs(startPosition.getY() - endPosition.getY()))
-			{
-				final Map<Position,Area> areaMap = board.getAreaMap();
-				for (Map.Entry<Position, Area> areaEntry : areaMap.entrySet())
-				{
-					final Position position = areaEntry.getKey();
-					final Area area = areaEntry.getValue();
-					if ((position.getX() == endPosition.getX()) || (position.getY() == endPosition.getY())) // compare only Horizontal and Vertical cells
-					{
-						if ((area.getPiece() != null) &&
-							(position.hashCode() != endPosition.hashCode()) &&
-							(position.hashCode() != startPosition.hashCode()))
-							return false;
-						else
-							if (((area.getPiece() == null)||(area.getPiece() != null && area.getPiece().getColor() == opponentColor)) &&
-								(position.hashCode() == endPosition.hashCode())) // If this move take piece
-							return true;
-					}
-				}
-			}
-			else
-				return true;
-		}
-		else
 			return false;
+		}
 
-		return false;
+		// check move with fight
+		final Piece endPiece = getPiece(board, endPosition);
+		if (endPiece != null && endPiece.getColor() != opponentColor)
+		{
+			return false;
+		}
+
+		// check pieces on the way
+		if (arePiecesOnTheWay())
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -6,15 +6,19 @@ package ua.edu.donntu.cs.chess.components.rules.chess.impl.rules;
 
 import ua.edu.donntu.cs.chess.components.model.*;
 import ua.edu.donntu.cs.chess.components.model.impl.StandardPosition;
+import ua.edu.donntu.cs.chess.components.rules.*;
+import ua.edu.donntu.cs.chess.components.rules.chess.impl.*;
+
+import java.util.Map;
 
 /**
  * Description.
  */
 public abstract class PieceRules
 {
-	public void setBoard(Board board)
+	public void setRules(RulesImpl rules)
 	{
-		this.board = board;
+		this.rules = rules;
 	}
 
 	public void setColor(Color color)
@@ -23,10 +27,10 @@ public abstract class PieceRules
 		opponentColor = (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 
-	public void setCurrentMove(String move)
+	public void setCurrentMove(Position startPosition, Position endPosition)
 	{
-		startPosition = parsePosition(move.substring(0, 2));
-		endPosition = parsePosition(move.substring(2, 4));
+		this.startPosition = startPosition;
+		this.endPosition = endPosition;
 
 		yDiff = endPosition.getY() - startPosition.getY();
 		xDiff = endPosition.getX() - startPosition.getX();
@@ -35,17 +39,24 @@ public abstract class PieceRules
 		xAbsDiff = Math.abs(xDiff);
 	}
 
-	public void setPreviousMove(String move)
+	public void setGame(Game game)
 	{
-		previousMoveExists = !move.isEmpty();
+		this.game = game;
+
+		board = game.getBoard();
+
+		moves = game.getMoves();
+
+		String lastMove = game.getLastMove();
+		previousMoveExists = !lastMove.isEmpty();
 		if (previousMoveExists)
 		{
-			prevStartPosition = parsePosition(move.substring(0, 2));
-			prevEndPosition = parsePosition(move.substring(2, 4));
+			prevStartPosition = parsePosition(lastMove.substring(0, 2));
+			prevEndPosition = parsePosition(lastMove.substring(2, 4));
 		}
 	}
 
-	private Position parsePosition(String position)
+	public static Position parsePosition(String position)
 	{
 		final int x = position.charAt(0) - 'a';
 		final int y = position.charAt(1) - '1';
@@ -53,12 +64,6 @@ public abstract class PieceRules
 	}
 
 	public abstract boolean isMovePossible();
-
-	protected Piece getPiece(Position position)
-	{
-		final Area endArea = board.getAreaAt(position.getX(), position.getY());
-		return endArea.getPiece();
-	}
 
 	protected boolean checkFight()
 	{
@@ -86,6 +91,61 @@ public abstract class PieceRules
 		return false;
 	}
 
+	protected boolean fieldsOnFire()
+	{
+		final int yDelta = yDiff/((yDiff != 0) ? yAbsDiff : 1);
+		final int xDelta = xDiff/((xDiff != 0) ? xAbsDiff : 1);
+
+		Position runner = startPosition;
+		while (true)
+		{
+			if (fieldOnFire(runner))
+			{
+				return true;
+			}
+			if (runner.equals(endPosition))
+			{
+				break;
+			}
+			runner = new StandardPosition(runner.getX() + xDelta,
+					runner.getY() + yDelta);
+		}
+		return false;
+	}
+
+	protected Piece getPiece(Position position)
+	{
+		final Area endArea = board.getAreaAt(position.getX(), position.getY());
+		return endArea.getPiece();
+	}
+
+	private boolean fieldOnFire(Position fieldPosition)
+	{
+		final Map<Position, Area> areaMap = board.getAreaMap();
+		for (Map.Entry<Position, Area> areaEntry : areaMap.entrySet())
+		{
+			final Position position = areaEntry.getKey();
+			final Area area = areaEntry.getValue();
+
+			final Piece piece = area.getPiece();
+			if (piece == null || piece.getColor() != opponentColor)
+			{
+				continue;
+			}
+
+			if (rules.checkMove(game, position, fieldPosition))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected String moves;
+	protected RulesImpl rules;
+	protected Board board;
+	protected Color opponentColor;
+
 	protected Color ourColor;
 	protected boolean previousMoveExists;
 
@@ -100,6 +160,5 @@ public abstract class PieceRules
 	protected Position prevStartPosition;
 	protected Position prevEndPosition;
 
-	private Board board;
-	private Color opponentColor;
+	private Game game;
 }
